@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Awareness for Everyone — breast cancer awareness site
 
-## Getting Started
+Next.js 16 + TypeScript + Supabase (Postgres, sign-in). English, Urdu and Arabic interface (RTL supported).
+Public pages: no cookies, no analytics, no third-party requests (videos load only after a click).
+Accounts, doctor video submissions, stories, contact form and the admin dashboard need Supabase:
+**start with `docs/SETUP-SUPABASE-VERCEL.md`**, then `docs/ADMIN-GUIDE.md`.
 
-First, run the development server:
+## What is built (Phase 1)
+Home, 8 educational pages (about, signs, risk, breast health guide, screening, treatment, living with it,
+appointment checklist), 9 myth-vs-fact cards with sources, 30-question quiz (3 levels, shuffled, scored,
+reviewable, printable participation certificate), "What Should I Do Next?" tool, site search, support page,
+FAQ, sources, contact, plus Privacy, Terms, Cookies, Payments and Refunds, Medical Disclaimer,
+Accessibility and Credits pages, sitemap and robots.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## What is NOT built (and why)
+Accounts, doctor registration/verification, video upload and admin approval, story submissions, admin
+dashboard, database, reminders, downloadable resources, full translation of medical text. These need a backend,
+secure storage and legal groundwork first: see `docs/LEGAL-RISKS.md` §12. Pages for these exist and honestly
+say "not open yet". Nothing fake is shown.
+
+## Run it
+```
+npm install
+npm run dev            # http://localhost:3000
+npm run build && npx next start -p 3100
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Set your details
+Copy `.env.example` values into your host's environment settings (or `.env.local`). Editing text:
+- Pages: `src/content/pages.ts` · Myths: `src/content/myths.ts` · Quiz: `src/content/quiz.ts`
+- FAQ: `src/content/faq.ts` · Sources: `src/content/sources.ts` · Support list: `src/content/support.ts`
+- UI strings and translations: `src/i18n/dictionaries.ts` · Site name/business facts: `src/config/site.ts`
+- Every claim must cite a source id from `sources.ts`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
+`npm run lint` · `npm run check:launch` · `npm run check:contrast` · `npm run test:e2e` ·
+`npm run check:quiz` · `npm run check:links` (run on your own computer).
+Read `docs/LAUNCH-CHECKLIST.md` before going live.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+Any Node host works (Vercel, Netlify, a VPS with `next start`). Turn OFF host analytics. Keep HTTPS on.

@@ -1,0 +1,411 @@
+export type Level = "easy" | "intermediate" | "advanced";
+
+export type QuizQuestion = {
+  id: string;
+  level: Level;
+  topic: string;
+  q: string;
+  options: [string, string, string, string];
+  /** index into options of the single correct answer */
+  answer: 0 | 1 | 2 | 3;
+  explanation: string;
+  sources: string[];
+};
+
+/**
+ * 30 questions, English. Drafted from WHO / NCI / ACS / NHS public guidance.
+ * Needs clinician sign-off before launch (docs/LAUNCH-CHECKLIST.md).
+ * Answers are validated by index, so shuffling options never changes scoring.
+ */
+export const quiz: QuizQuestion[] = [
+  {
+    id: "q01", level: "easy", topic: "Basics",
+    q: "What is breast cancer?",
+    options: [
+      "A condition where cells in breast tissue change and grow in an uncontrolled way",
+      "An infection of the breast caused by bacteria",
+      "A normal change in the breast that happens with age",
+      "A condition caused only by injury to the breast",
+    ],
+    answer: 0,
+    explanation: "Cancer begins when cells stop following the body's normal rules for growing and dying. It is not an infection and is not caused only by injury.",
+    sources: ["nci", "who"],
+  },
+  {
+    id: "q02", level: "easy", topic: "Men and breast cancer",
+    q: "Can men develop breast cancer?",
+    options: [
+      "No, only women have breast tissue",
+      "Yes, although it is rare",
+      "Only men with a family history can",
+      "Only men over 90 can",
+    ],
+    answer: 1,
+    explanation: "Men have a small amount of breast tissue. WHO states about 0.5 to 1% of breast cancers occur in men. Family history is not required.",
+    sources: ["who", "nciMale"],
+  },
+  {
+    id: "q03", level: "easy", topic: "Symptoms",
+    q: "Which of these is a possible warning sign that should be checked by a healthcare professional?",
+    options: [
+      "A new lump or thickened area in the breast or armpit",
+      "A change in the weather",
+      "Needing new glasses",
+      "Having a headache after a long day",
+    ],
+    answer: 0,
+    explanation: "A new lump or thickened area is one of the most common signs. Other signs include skin dimpling, nipple changes and unusual discharge.",
+    sources: ["who", "nhsSymptoms"],
+  },
+  {
+    id: "q04", level: "easy", topic: "Misconceptions",
+    q: "Is every breast lump cancer?",
+    options: [
+      "Yes, every lump is cancer",
+      "No. Many lumps are benign, but a new lump should still be checked",
+      "No, so there is no need to see anyone about a lump",
+      "Only lumps that hurt are cancer",
+    ],
+    answer: 1,
+    explanation: "Many lumps are benign, such as cysts. But you cannot tell by touch, so any new lump needs assessment. Pain is not a reliable guide.",
+    sources: ["nhsSymptoms", "nci"],
+  },
+  {
+    id: "q05", level: "easy", topic: "Seeking help",
+    q: "You notice a new, unexplained change in your breast. What is the best next step?",
+    options: [
+      "Wait a year to see if it goes away",
+      "Search online for a home remedy",
+      "Arrange to see a healthcare professional promptly",
+      "Wait until your next routine screening",
+    ],
+    answer: 2,
+    explanation: "New or concerning changes should be assessed promptly. Do not wait for a routine screening appointment.",
+    sources: ["nhsSymptoms", "who"],
+  },
+  {
+    id: "q06", level: "easy", topic: "Misconceptions",
+    q: "If a self-check of your breasts feels normal, does that rule out breast cancer?",
+    options: [
+      "Yes, completely",
+      "Yes, if you check every day",
+      "No. Self-checks cannot rule out cancer and do not replace screening or medical assessment",
+      "Yes, if you are under 40",
+    ],
+    answer: 2,
+    explanation: "Some cancers cannot be felt, and no one can rule out cancer by touch. Breast awareness helps you notice changes but is not a test.",
+    sources: ["nhs", "acs"],
+  },
+  {
+    id: "q07", level: "easy", topic: "Treatment",
+    q: "Can herbal remedies or special diets replace medical treatment for breast cancer?",
+    options: [
+      "Yes, they are as effective as surgery",
+      "Yes, if taken for long enough",
+      "Only for early stages",
+      "No. No alternative remedy has been shown to cure breast cancer, and delaying treatment can be dangerous",
+    ],
+    answer: 3,
+    explanation: "Evidence-based treatment is recommended. Talk to your care team before using any supplement or remedy, as some can interfere with treatment.",
+    sources: ["nciTreatment", "acs"],
+  },
+  {
+    id: "q08", level: "easy", topic: "Risk factors",
+    q: "Which of these is a risk factor for breast cancer that a person cannot change?",
+    options: [
+      "Increasing age",
+      "The amount of alcohol they drink",
+      "How physically active they are",
+      "Whether they smoke",
+    ],
+    answer: 0,
+    explanation: "Age and inherited genes cannot be changed. Alcohol, activity, smoking and weight are modifiable.",
+    sources: ["who", "nciRisk"],
+  },
+  {
+    id: "q09", level: "easy", topic: "Misconceptions",
+    q: "If nobody in your family has had breast cancer, does that mean you cannot get it?",
+    options: [
+      "Yes, it only runs in families",
+      "Yes, if your mother was healthy",
+      "No. Many people who are diagnosed have no known family history",
+      "Yes, if you live a healthy lifestyle",
+    ],
+    answer: 2,
+    explanation: "Family history raises risk, but breast cancer also occurs in people without it. Being female and older are the biggest overall risk factors.",
+    sources: ["who", "nciRisk"],
+  },
+  {
+    id: "q10", level: "intermediate", topic: "Screening",
+    q: "What is the main difference between screening and diagnostic testing?",
+    options: [
+      "Screening is for people without symptoms; diagnostic tests investigate a symptom or abnormal result",
+      "There is no difference",
+      "Screening is only for men",
+      "Diagnostic tests are always cheaper",
+    ],
+    answer: 0,
+    explanation: "Screening looks for cancer in people who feel well. Diagnostic tests are used when there is a symptom or an abnormality that needs investigation.",
+    sources: ["nciScreening", "nhsScreening"],
+  },
+  {
+    id: "q11", level: "intermediate", topic: "Screening",
+    q: "What is a mammogram?",
+    options: [
+      "A blood test",
+      "A low-dose X-ray image of the breast",
+      "A test using a long needle in every case",
+      "A genetic test",
+    ],
+    answer: 1,
+    explanation: "A mammogram is a low-dose X-ray of the breast. It is a main screening test in many national programmes.",
+    sources: ["nciScreening", "nhsScreening"],
+  },
+  {
+    id: "q12", level: "intermediate", topic: "Risk factors",
+    q: "Which lifestyle factor is linked with a higher risk of breast cancer?",
+    options: [
+      "Drinking water",
+      "Sleeping eight hours",
+      "Drinking alcohol, with risk increasing with the amount",
+      "Walking to work",
+    ],
+    answer: 2,
+    explanation: "Alcohol is an established risk factor and risk rises with the amount consumed.",
+    sources: ["who", "nciRisk"],
+  },
+  {
+    id: "q13", level: "intermediate", topic: "Risk reduction",
+    q: "Which statement about lifestyle and prevention is accurate?",
+    options: [
+      "A healthy lifestyle guarantees you will not get breast cancer",
+      "A healthy lifestyle may lower risk but cannot guarantee prevention",
+      "Lifestyle has no effect on any cancer",
+      "Only supplements can prevent breast cancer",
+    ],
+    answer: 1,
+    explanation: "Being active, limiting alcohol and keeping a healthy weight may lower risk. Many people who develop breast cancer have no modifiable risk factors, and no supplement is proven to prevent it.",
+    sources: ["who", "nciRisk"],
+  },
+  {
+    id: "q14", level: "intermediate", topic: "Risk factors",
+    q: "What are BRCA1 and BRCA2?",
+    options: [
+      "Types of breast surgery",
+      "Names of mammogram machines",
+      "Medicines used in chemotherapy",
+      "Genes in which inherited changes can greatly increase the risk of breast cancer",
+    ],
+    answer: 3,
+    explanation: "Inherited changes in BRCA1, BRCA2 and some other genes, such as PALB2, are associated with a higher risk of breast and some other cancers.",
+    sources: ["who", "nci"],
+  },
+  {
+    id: "q15", level: "intermediate", topic: "Diagnosis",
+    q: "What is the purpose of a breast biopsy?",
+    options: [
+      "To take a sample of tissue to be examined under a microscope",
+      "To treat the cancer",
+      "To take a blood sample",
+      "To measure bone density",
+    ],
+    answer: 0,
+    explanation: "A biopsy is the way to confirm whether cancer is present, and the sample can also be tested for features such as hormone receptors and HER2.",
+    sources: ["nci", "acs"],
+  },
+  {
+    id: "q16", level: "intermediate", topic: "Screening",
+    q: "Who should follow which breast screening schedule?",
+    options: [
+      "Everyone in the world should follow exactly the same schedule",
+      "Nobody needs to be screened",
+      "Only people with symptoms",
+      "It varies by country, age, medical history and risk, so ask a healthcare professional or your national programme",
+    ],
+    answer: 3,
+    explanation: "Recommendations differ between countries and organisations and depend on individual risk. A clinician or national screening programme can tell you what applies to you.",
+    sources: ["who", "nciScreening"],
+  },
+  {
+    id: "q17", level: "intermediate", topic: "Screening",
+    q: "What is true about dense breast tissue?",
+    options: [
+      "It is harmless and has no effect on mammograms",
+      "It can make mammograms harder to read and is linked with a somewhat higher risk",
+      "It only occurs in men",
+      "It means a person already has cancer",
+    ],
+    answer: 1,
+    explanation: "Dense tissue is common. It can hide changes on a mammogram and is a risk factor, but it does not mean cancer is present.",
+    sources: ["nci", "nciScreening"],
+  },
+  {
+    id: "q18", level: "intermediate", topic: "Basics",
+    q: "What does ductal carcinoma in situ (DCIS) mean?",
+    options: [
+      "Cancer that has spread to the lungs",
+      "A harmless skin condition",
+      "Abnormal cells inside the milk ducts that have not spread into surrounding breast tissue",
+      "A type of mammogram",
+    ],
+    answer: 2,
+    explanation: "DCIS is non-invasive (stage 0). It is usually treated because it can sometimes become invasive.",
+    sources: ["nci", "acs"],
+  },
+  {
+    id: "q19", level: "intermediate", topic: "Treatment",
+    q: "What is HER2?",
+    options: [
+      "A protein; knowing whether cancer cells make too much of it helps choose treatment",
+      "A type of scan",
+      "A vitamin",
+      "A hospital department",
+    ],
+    answer: 0,
+    explanation: "Some breast cancers make too much HER2. HER2-targeted treatments can be used in those cases.",
+    sources: ["nci", "nciTreatment"],
+  },
+  {
+    id: "q20", level: "intermediate", topic: "Misconceptions",
+    q: "Does breast cancer always cause pain?",
+    options: [
+      "Yes, always",
+      "No. A lump is often painless and some cancers cause no symptoms",
+      "Yes, in the early stages",
+      "Only in older people",
+    ],
+    answer: 1,
+    explanation: "Pain is not a reliable sign. Its presence does not confirm cancer and its absence does not rule it out.",
+    sources: ["nhsSymptoms", "who"],
+  },
+  {
+    id: "q21", level: "advanced", topic: "Diagnosis",
+    q: "What does the 'stage' of a cancer describe?",
+    options: [
+      "How abnormal the cells look under a microscope",
+      "How large the cancer is and whether it has spread to lymph nodes or elsewhere",
+      "The patient's age",
+      "The hospital where it was found",
+    ],
+    answer: 1,
+    explanation: "Stage describes extent of the disease. Grade describes how abnormal the cells look. Both inform treatment.",
+    sources: ["nci", "acs"],
+  },
+  {
+    id: "q22", level: "advanced", topic: "Treatment",
+    q: "What does 'hormone receptor positive' mean?",
+    options: [
+      "The patient has too many hormones",
+      "The cancer cells have receptors for oestrogen and/or progesterone, so hormone therapy may be an option",
+      "The cancer is not dangerous",
+      "The cancer cannot be treated",
+    ],
+    answer: 1,
+    explanation: "Hormone receptor positive cancers may grow in response to hormones, so medicines that block or lower hormones can be part of treatment.",
+    sources: ["nci", "nciTreatment"],
+  },
+  {
+    id: "q23", level: "advanced", topic: "Screening",
+    q: "Which is a recognised limitation of screening mammography?",
+    options: [
+      "It never finds anything",
+      "It always finds every cancer",
+      "It can cause false alarms, can miss some cancers, and can sometimes find cancers that would never have caused harm",
+      "It is only for men",
+    ],
+    answer: 2,
+    explanation: "Screening has real benefits but also limitations. A balanced discussion with a clinician helps you decide.",
+    sources: ["nciScreening", "nhsScreening"],
+  },
+  {
+    id: "q24", level: "advanced", topic: "Treatment",
+    q: "Which statement about breast cancer treatment is correct?",
+    options: [
+      "Everyone receives the same treatment",
+      "Treatment is chosen only by age",
+      "Treatment depends on type, stage, test results, health and the person's preferences",
+      "Treatment is always surgery only",
+    ],
+    answer: 2,
+    explanation: "Care is individualised by a multidisciplinary team and the patient.",
+    sources: ["nciTreatment", "who"],
+  },
+  {
+    id: "q25", level: "advanced", topic: "Treatment",
+    q: "What are clinical trials?",
+    options: [
+      "Court cases about hospitals",
+      "Research studies that test new approaches; taking part is voluntary",
+      "Compulsory treatment programmes",
+      "Routine blood tests",
+    ],
+    answer: 1,
+    explanation: "Trials help find better ways to prevent, detect and treat cancer. People can ask their team whether any are suitable.",
+    sources: ["nciTreatment", "nci"],
+  },
+  {
+    id: "q26", level: "intermediate", topic: "Supporting patients",
+    q: "What is a helpful way to support a friend diagnosed with breast cancer?",
+    options: [
+      "Tell them what they did wrong",
+      "Insist they try a miracle cure you read about",
+      "Avoid them so they are not upset",
+      "Listen, offer specific practical help, and respect their choices",
+    ],
+    answer: 3,
+    explanation: "Listening, specific offers of help and respecting the person's decisions are often most helpful. Blame or unproven cures are not.",
+    sources: ["acs", "nhs"],
+  },
+  {
+    id: "q27", level: "advanced", topic: "Risk reduction",
+    q: "Who might benefit from a conversation about genetic counselling?",
+    options: [
+      "Everybody must have a genetic test",
+      "People with a strong family history of breast or related cancers, as advised by a clinician",
+      "Only people who have never smoked",
+      "Nobody, genetics is irrelevant",
+    ],
+    answer: 1,
+    explanation: "Genetic counselling is useful for some people, for example those with several affected relatives or a relative diagnosed young. It is not needed for everyone.",
+    sources: ["nci", "who"],
+  },
+  {
+    id: "q28", level: "advanced", topic: "Global awareness",
+    q: "According to the WHO fact sheet (July 2026), in how many countries is breast cancer the most common cancer in women?",
+    options: [
+      "Only in the highest-income countries",
+      "In no country",
+      "Only in countries in Europe",
+      "In most countries (164 of 186 assessed)",
+    ],
+    answer: 3,
+    explanation: "WHO reports breast cancer is the most common cancer in women in 164 of 186 countries assessed. This is why global awareness and access to care matter.",
+    sources: ["who"],
+  },
+  {
+    id: "q29", level: "advanced", topic: "Early detection",
+    q: "Why is early detection important?",
+    options: [
+      "Earlier-stage cancers generally have more treatment options and better outcomes",
+      "It makes cancer impossible",
+      "It is only important for men",
+      "It has no effect on treatment",
+    ],
+    answer: 0,
+    explanation: "WHO emphasises early diagnosis and prompt treatment as key to better outcomes. That does not mean every cancer can be cured, but timely assessment matters.",
+    sources: ["who", "whoGbci"],
+  },
+  {
+    id: "q30", level: "easy", topic: "Help-seeking",
+    q: "This website says it is educational only. What does that mean?",
+    options: [
+      "It can diagnose you if you answer its questions",
+      "It can replace your doctor",
+      "It can tell you that you are cancer-free",
+      "It gives general information and cannot diagnose, treat or replace a healthcare professional",
+    ],
+    answer: 3,
+    explanation: "Only a qualified clinician who examines you and reviews your tests can diagnose or exclude breast cancer.",
+    sources: ["who"],
+  },
+];
